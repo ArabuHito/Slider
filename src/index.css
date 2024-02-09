@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --text: #150408;
+        --background: #d3dadf;
+        --primary: #62888d;
+        --secondary: #4f877d;
+        --accent: #daa167;
+    }
+    h1 {
+        @apply text-2xl;
+    }
+    h2 {
+        @apply text-xl p-3;
+    }
+    h3 {
+        @apply text-lg;
+    }
+    a {
+        @apply text-blue-600 underline;
+    }
+}
+
+body{
+    background-color: var(--background);
+    color: var(--text);
+    height: 100vh;
+    margin:0;
+}
