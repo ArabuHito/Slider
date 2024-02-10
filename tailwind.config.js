@@ -9,22 +9,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        'text': 'var(--text)',
-        'background': 'var(--background)',
-        'primary': 'var(--primary)',
-        'secondary': 'var(--secondary)',
-        'accent': 'var(--accent)',
+        'text': '#617375',
+        'background': '#fcf6e8',
+        'primary': '#d0ae95',
+        'secondary': '#b1a49a',
+        'accent': '#65584e',
+        'code': '#24273a',
+        'border': '#575d80'
       }
     },
   },
-  plugins: [
-    plugin(function({ addBase, theme }) {
-      addBase({
-        'h1': { fontSize: theme('fontSize.2xl') },
-        'h2': { fontSize: theme('fontSize.xl') },
-        'h3': { fontSize: theme('fontSize.lg') },
-      })
-    })
-  ]
+  plugins: []
 }
 

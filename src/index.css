@@ -2,31 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    :root {
-        --text: #150408;
-        --background: #d3dadf;
-        --primary: #62888d;
-        --secondary: #4f877d;
-        --accent: #daa167;
+@layer components{
+    .title {
+        @apply text-7xl font-bold m-8;
     }
-    h1 {
-        @apply text-2xl;
+
+    .text {
+        @apply text-text text-3xl mx-32;
     }
-    h2 {
-        @apply text-xl p-3;
+
+    .toolbar {
+        @apply fixed bottom-0 left-0 w-screen px-8 flex justify-between;
     }
-    h3 {
-        @apply text-lg;
+
+    .slide {
+        @apply h-screen w-screen text-center flex flex-col justify-center bg-background;
     }
-    a {
-        @apply text-blue-600 underline;
+
+    .code{
+        @apply rounded w-fit mx-auto bg-code p-4 text-white border-border border-2;
+    }
+
+    .progress-bar {
+        @apply fixed bottom-0 left-0 w-0 h-1 bg-primary transition-all duration-500 ease-in-out;
+    }
+
+    .image {
+        @apply w-fit mx-auto;
     }
 }
 
-body{
-    background-color: var(--background);
-    color: var(--text);
-    height: 100vh;
-    margin:0;
+@font-face {
+    font-family: 'Outfit';
+    src: url('assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@layer base {
+    html {
+        font-family: 'Outfit', sans-serif;
+    }
 }
