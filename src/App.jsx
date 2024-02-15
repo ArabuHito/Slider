@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import {Slide} from "./components/Slide.jsx";
 import {CodeBlock, Paragraph, Title} from "./components/Text.jsx";
 import {Deck} from "./components/Deck.jsx";
@@ -26,6 +27,7 @@ function App() {
             <Title>
                 Here's a bit of code...
             </Title>
+            {/*TODO: Change to a string element */}
             <CodeBlock>
                     <pre>
 {`const plugin = require('tailwindcss/plugin')

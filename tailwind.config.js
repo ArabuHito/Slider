@@ -1,6 +1,8 @@
+// eslint-disable-next-line no-unused-vars,no-undef
 const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
