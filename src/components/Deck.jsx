@@ -1,21 +1,15 @@
-import {useState, useEffect, useCallback} from "react";
+import {useCallback, useEffect, useState} from "react";
+import {MosaicView} from "./MosaicView.jsx";
 import PropTypes from 'prop-types';
 
-function Deck( {children} ) {
+function Deck({children}) {
     // Hooks
     const [currentSlide, setCurrentSlide] = useState(0);
     const [progressWidth, setProgressWidth] = useState(0);
     const [mosaicView, setMosaicView] = useState(false);
 
     // Index the slides
-    const slides = children.map((slide, index) => {
-        return (
-            <div key={index} className={`slide ${mosaicView ? 'mosaic-slide' : ''}`}
-                 onClick={() => handleSlideClick(index)}>
-                {slide}
-            </div>
-        );
-    });
+    const slides = children;
 
     // Constants
     const totalSlides = slides.length;
@@ -34,35 +28,26 @@ function Deck( {children} ) {
         }
     }, [currentSlide, totalSlides]);
 
-    // Handle slide click in mosaic view
-    const handleSlideClick = (index) => {
-        if (mosaicView) {
-            setCurrentSlide(index);
-            setMosaicView(false);
-        }
-    };
-
     // Toggle mosaic view
     const toggleMosaicView = () => {
         setMosaicView(!mosaicView);
     };
 
     // Keyboard navigation
-    // TODO : Remake this with the event listener "keyup" in React
     useEffect(() => {
-        function handleKeyDown(event) {
+        const handleKeyUp = (event) => {
             if (event.key === "ArrowRight") {
                 nextSlide();
             }
             if (event.key === "ArrowLeft") {
                 prevSlide();
             }
-        }
+        };
 
-        document.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
 
         return () => {
-            document.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
         };
     }, [nextSlide, prevSlide]);
 
@@ -72,16 +57,17 @@ function Deck( {children} ) {
     }, [currentSlide, totalSlides]);
 
     return (
-        <div className={`deck ${mosaicView ? 'mosaic-view' : ''}`}>
-            {mosaicView ? slides : slides[currentSlide]}
+        <div className={"deck"}>
+            {mosaicView ? slides[currentSlide] : <MosaicView
+                slides={slides}
+            />}
             <div className="toolbar">
-                <div className="controls">
-                    <button className="prev" onClick={prevSlide}><span
-                        className="material-symbols-outlined">arrow_back_ios</span></button>
-                    <button className="next" onClick={nextSlide}><span
-                        className="material-symbols-outlined">arrow_forward_ios</span></button>
-                    <button className="mosaic-view" onClick={toggleMosaicView}><span className="material-symbols-outlined">view_cozy</span></button>
-                </div>
+                <button className="prev" onClick={prevSlide}><span
+                    className="material-symbols-outlined">arrow_back_ios</span></button>
+                <button className="next" onClick={nextSlide}><span
+                    className="material-symbols-outlined">arrow_forward_ios</span></button>
+                <button className="mosaic-view" onClick={toggleMosaicView}><span
+                    className="material-symbols-outlined">view_cozy</span></button>
             </div>
             <div className="progress-bar" style={{width: `${progressWidth}%`}}/>
         </div>

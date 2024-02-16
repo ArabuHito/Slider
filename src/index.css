@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    body {
+        @apply bg-secondary dark:bg-stone-600;
+    }
+
     .title {
         @apply text-7xl font-bold m-8 text-accent dark:text-secondary;
     }
@@ -12,11 +16,11 @@
     }
 
     .toolbar {
-        @apply fixed bottom-0 left-0 w-screen px-8 flex justify-between pb-1 text-text dark:text-primary;
+        @apply fixed bottom-0 left-0 w-screen px-8 flex flex-row justify-items-start pb-1 text-text dark:text-primary;
     }
 
     .slide {
-        @apply h-screen w-screen text-center flex flex-col justify-center bg-background dark:bg-stone-800;
+        @apply h-screen w-screen text-center flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip;
     }
 
     .code {
@@ -24,20 +28,23 @@
     }
 
     .progress-bar {
-        @apply fixed bottom-0 left-0 w-0 h-2 transition-all duration-500 ease-in-out bg-primary dark:bg-primary;
+        @apply fixed top-0 left-0 w-0 h-2 transition-all duration-500 ease-in-out bg-primary dark:bg-primary;
     }
 
     .image {
-        @apply w-fit mx-auto;
+        @apply mx-auto my-2 max-h-96 rounded-lg;
     }
 
-    .deck.mosaic-view {
-        @apply bg-secondary dark:bg-stone-600
-        grid-cols-2 grid-rows-2 grid gap-4 p-4;
+    .mosaic-view{
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
     }
 
-    .slide.mosaic-slide {
-        @apply cursor-pointer w-[50%];
+    .mosaic-slide {
+        @apply h-96 w-full rounded-lg flex flex-col justify-center items-center;
+    }
+
+    .mosaic-slide .slide{
+        @apply h-96 w-full scale-[90%] rounded-xl;
     }
 }
 
@@ -50,6 +57,6 @@
 
 @layer base {
     html {
-        @apply font-sans bg-background dark:bg-stone-900 text-text dark:text-primary;
+        @apply font-sans text-text dark:text-primary;
     }
 }

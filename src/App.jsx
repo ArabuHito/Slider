@@ -59,8 +59,9 @@ export default {
                 ...and a picture of my cat !
             </Title>
             <Image
-                src="https://placekitten.com/720/480"
+                src="https://placekitten.com/1080/920"
                 alt="A cute kitten"
+                caption="A wide kitten"
             />
         </Slide>
     </Deck>)
