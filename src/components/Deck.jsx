@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {MosaicView} from "./MosaicView.jsx";
 import PropTypes from 'prop-types';
 
 function Deck({children}) {
@@ -58,10 +57,13 @@ function Deck({children}) {
 
     return (
         <div className={"deck"}>
-            {mosaicView ? slides[currentSlide] : <MosaicView
-                slides={slides}
-            />}
-            <div className="toolbar">
+            {mosaicView ?
+                <MosaicView slides={slides}/>
+                : <div className="slide h-screen w-screen text-center flex flex-col justify-center
+                    bg-background dark:bg-stone-800 overflow-clip"> {slides[currentSlide]}</div>
+            }
+            <div className="toolbar fixed bottom-0 left-0 flex flex-row justify-start px-4 w-full text-accent
+             dark:text-primary">
                 <button className="prev" onClick={prevSlide}><span
                     className="material-symbols-outlined">arrow_back_ios</span></button>
                 <button className="next" onClick={nextSlide}><span
@@ -69,12 +71,32 @@ function Deck({children}) {
                 <button className="mosaic-view" onClick={toggleMosaicView}><span
                     className="material-symbols-outlined">view_cozy</span></button>
             </div>
-            <div className="progress-bar" style={{width: `${progressWidth}%`}}/>
+            <div className="progress-bar fixed top-0 left-0 w-0 h-2 transition-all duration-500 ease-in-out bg-primary dark:bg-primary" style={{width: `${progressWidth}%`}}/>
+        </div>
+    );
+}
+
+// Mosaic view
+function MosaicView({slides}) {
+    return (
+        <div className={"mosaic-view grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-4"}>
+            {slides.map((slide, index) => (
+                <div key={index} className="mosaic-slide h-96 w-full rounded-lg flex flex-col
+                    justify-center bg-background dark:bg-stone-800 items-center overflow-clip">
+                    <div className="mosaic-slide-content scale-[0.4] flex flex-col items-center text-center mx-0">
+                        {slide}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 }
 
 // Prop types
+MosaicView.propTypes = {
+    slides: PropTypes.arrayOf(PropTypes.node).isRequired
+};
+
 Deck.propTypes = {
     children: PropTypes.array.isRequired,
 };

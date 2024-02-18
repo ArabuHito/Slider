@@ -6,46 +6,6 @@
     body {
         @apply bg-secondary dark:bg-stone-600;
     }
-
-    .title {
-        @apply text-7xl font-bold m-8 text-accent dark:text-secondary;
-    }
-
-    .text {
-        @apply text-text dark:text-primary text-3xl mx-32;
-    }
-
-    .toolbar {
-        @apply fixed bottom-0 left-0 w-screen px-8 flex flex-row justify-items-start pb-1 text-text dark:text-primary;
-    }
-
-    .slide {
-        @apply h-screen w-screen text-center flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip;
-    }
-
-    .code {
-        @apply rounded w-fit mx-auto bg-code p-4 text-white border-border border-2;
-    }
-
-    .progress-bar {
-        @apply fixed top-0 left-0 w-0 h-2 transition-all duration-500 ease-in-out bg-primary dark:bg-primary;
-    }
-
-    .image {
-        @apply mx-auto my-2 max-h-96 rounded-lg;
-    }
-
-    .mosaic-view{
-        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
-    }
-
-    .mosaic-slide {
-        @apply h-96 w-full rounded-lg flex flex-col justify-center items-center;
-    }
-
-    .mosaic-slide .slide{
-        @apply h-96 w-full scale-[90%] rounded-xl;
-    }
 }
 
 @font-face {
@@ -53,10 +13,4 @@
     src: url('assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-}
-
-@layer base {
-    html {
-        @apply font-sans text-text dark:text-primary;
-    }
 }

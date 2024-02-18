@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 
 function Slide({children}) {
     return (
-        <div className="slide">
+        <>
             {children}
-        </div>
+        </>
     )
 }
 
