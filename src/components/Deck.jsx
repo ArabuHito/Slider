@@ -49,7 +49,7 @@ function Deck({children}) {
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, [nextSlide, prevSlide]);
+    }, [nextSlide, prevSlide, mosaicView]);
 
     // Set the progress bar width
     useEffect(() => {
