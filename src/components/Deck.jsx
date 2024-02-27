@@ -84,13 +84,13 @@ function Deck({children}) {
 // TODO : Verify that a big image doesn't cause lag on mosaic view.
 
 // Mosaic view
-function MosaicView({slides, goToSlideFromMosaic}) {
+function MosaicView(props) {
     return (
         <div className={"mosaic-view grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-4"}>
-            {slides.map((slide, index) => (
+            {props.slides.map((slide, index) => (
                 <div key={index} className="mosaic-slide h-96 w-full rounded-lg flex flex-col
                     justify-center bg-background dark:bg-stone-800 items-center overflow-clip cursor-pointer"
-                     onClick={() => goToSlideFromMosaic(index)}>
+                     onClick={() => props.goToSlideFromMosaic(index)}>
                     <div className="mosaic-slide-content scale-[0.4] flex flex-col items-center text-center mx-0">
                         {slide}
                     </div>
@@ -101,6 +101,8 @@ function MosaicView({slides, goToSlideFromMosaic}) {
 }
 
 function ToolBar(props) {
+    const [numberVisible, setNumberVisible] = useState(true);
+
     return <div className="toolbar fixed bottom-0 left-0 flex flex-row justify-between px-4 py-2 w-full text-accent
     dark:text-primary bg-background dark:bg-stone-800">
         <div className="left-section ">
@@ -115,15 +117,22 @@ function ToolBar(props) {
             </button>
         </div>
         <div className="middle-section font-bold">
-            {props.currentSlide+1}/{props.totalSlides}
+            {numberVisible ? ((props.currentSlide + 1) + "/" + props.totalSlides) : ""}
         </div>
         <div className="right-section">
-            <button className="settings">
-                <span className="material-symbols-outlined">settings</span>
+            <button className="settings relative" onClick={() => {
+                setNumberVisible(!numberVisible)
+            }}>
+
+                <span className="material-symbols-outlined">
+                    {numberVisible ? "visibility": "visibility_off"}
+                </span>
             </button>
         </div>
     </div>;
 }
+
+
 
 ToolBar.propTypes = {
     mosaicView: PropTypes.bool,
