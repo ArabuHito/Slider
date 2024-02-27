@@ -1,3 +1,7 @@
+/*
+ * BOUDOUAYA Ayoub, AMU 2024.
+ */
+
 /* eslint-disable react/no-unescaped-entities */
 import {Slide} from "./components/Slide.jsx";
 import {Paragraph, Title} from "./components/Text.jsx";

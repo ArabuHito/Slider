@@ -1,3 +1,7 @@
+/*
+ * BOUDOUAYA Ayoub, AMU 2024.
+ */
+
 import {useCallback, useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 
@@ -60,8 +64,7 @@ function Deck({children}) {
         <div className={"deck"}>
             {mosaicView ?
                 <MosaicView slides={slides} goToSlideFromMosaic={goToSlide}/>
-                : <div className="slide h-screen w-screen text-center flex flex-col justify-center
-                    bg-background dark:bg-stone-800 overflow-clip"> {slides[currentSlide]}</div>
+                : slides[currentSlide]
             }
             <ToolBar
                 mosaicView={mosaicView}
@@ -91,7 +94,7 @@ function MosaicView(props) {
                 <div key={index} className="mosaic-slide h-96 w-full rounded-lg flex flex-col
                     justify-center bg-background dark:bg-stone-800 items-center overflow-clip cursor-pointer"
                      onClick={() => props.goToSlideFromMosaic(index)}>
-                    <div className="mosaic-slide-content scale-[0.4] flex flex-col items-center text-center mx-0">
+                    <div className="mosaic-slide-content scale-[0.3] flex flex-col items-center text-center mx-0">
                         {slide}
                     </div>
                 </div>

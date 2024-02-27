@@ -1,3 +1,7 @@
+/*
+ * BOUDOUAYA Ayoub, AMU 2024.
+ */
+
 import PropTypes from "prop-types";
 
 

@@ -1,3 +1,7 @@
+/*
+ * BOUDOUAYA Ayoub, AMU 2024.
+ */
+
 // eslint-disable-next-line no-unused-vars,no-undef
 const plugin = require('tailwindcss/plugin')
 

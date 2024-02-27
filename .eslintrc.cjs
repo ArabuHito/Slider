@@ -1,3 +1,7 @@
+/*
+ * BOUDOUAYA Ayoub, AMU 2024.
+ */
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
