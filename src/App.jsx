@@ -23,12 +23,11 @@ CodeBlock {
 ~~~
 
 Et un paragraphe.
-`
+`;
 
 function App() {
     return (
         <Deck>
-            <Slide markdown={markdown}/>
             <Slide title="Comment j'ai gagné mon combat contre tailwind">
                 <Paragraph>...ou presque</Paragraph>
                 <Image src={"/Fight.png"} alt={"fight"} />
@@ -43,7 +42,7 @@ function App() {
                 <CodeBlock
                     syntax="css"
                     code={`                
-@tailwind base;
+                    @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -59,9 +58,10 @@ function App() {
     font-weight: 400;
     font-style: normal;
 }
-                `}
+`}
                 />
             </Slide>
+            <Slide markdown={markdown} />
             <Slide layout="column" title="Admirez mon chat.">
                 <Paragraph>
                     <i>

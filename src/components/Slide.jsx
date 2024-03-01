@@ -80,7 +80,7 @@ function Slide(props) {
                     <div className="title flex-2">
                         <Title>{props.title}</Title>
                     </div>
-                    <div className="slide-content">
+                    <div className="slide-content px-20">
                         {props.children}
                     </div>
                 </div>

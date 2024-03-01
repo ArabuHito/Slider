@@ -68,8 +68,10 @@ function Deck({children}) {
             }
             <ToolBar
                 mosaicView={mosaicView}
+                onClickFirst={() => setCurrentSlide(0)}
                 onClickPrev={prevSlide}
                 onClickNext={nextSlide}
+                onClickLast={() => setCurrentSlide(totalSlides - 1)}
                 onClickMosaic={() => setMosaicView(!mosaicView)}
                 currentSlide={currentSlide}
                 totalSlides={totalSlides}
@@ -108,12 +110,18 @@ function ToolBar(props) {
 
     return <div className="toolbar fixed bottom-0 left-0 flex flex-row justify-between px-4 py-2 w-full text-accent
     dark:text-primary bg-background dark:bg-stone-800 shadow-2xl">
-        <div className="left-section ">
+        <div className="left-section">
+            <button disabled={props.mosaicView} className="first disabled:text-gray-600 pr-1" onClick={props.onClickFirst}>
+                <span className="material-symbols-outlined">first_page</span>
+            </button>
             <button disabled={props.mosaicView} className="prev disabled:text-gray-600" onClick={props.onClickPrev}>
                 <span className="material-symbols-outlined">arrow_back_ios</span>
             </button>
             <button disabled={props.mosaicView} className="next disabled:text-gray-600" onClick={props.onClickNext}>
                 <span className="material-symbols-outlined">arrow_forward_ios</span>
+            </button>
+            <button disabled={props.mosaicView} className="last disabled:text-gray-600" onClick={props.onClickLast}>
+                <span className="material-symbols-outlined">last_page</span>
             </button>
             <button className="mosaic-view" onClick={props.onClickMosaic}>
                 <span className="material-symbols-outlined">view_cozy</span>
