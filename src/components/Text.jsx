@@ -26,11 +26,11 @@ function Title({children: text}) {
 
 function CodeBlock(props) {
     return (
-        <div className="text-left border-black">
+        <div className="text-left border-black relative scale-[0.85]">
             <SyntaxHighlighter language={props.syntax} style={dark}>
                 {props.code}
             </SyntaxHighlighter>
-            <div className="absolute top-0 right-2">
+            <div className="absolute top-4 right-4 text-white">
                 {props.syntax}
             </div>
         </div>
