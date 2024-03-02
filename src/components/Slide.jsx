@@ -37,7 +37,6 @@ function Slide(props) {
                     </Paragraph>
                 );
             }
-        
         };
 
         return (

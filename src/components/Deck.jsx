@@ -2,10 +2,10 @@
  * BOUDOUAYA Ayoub, AMU 2024.
  */
 
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-function Deck({children}) {
+function Deck({ children }) {
     // Hooks
     const [currentSlide, setCurrentSlide] = useState(0);
     const [progressWidth, setProgressWidth] = useState(0);
@@ -57,15 +57,20 @@ function Deck({children}) {
 
     // Set the progress bar width
     useEffect(() => {
-        setProgressWidth(((currentSlide) / (totalSlides - 1)) * 100);
+        setProgressWidth((currentSlide / (totalSlides - 1)) * 100);
     }, [currentSlide, totalSlides]);
 
     return (
         <div className={"deck"}>
-            {mosaicView ?
-                <MosaicView slides={slides} goToSlideFromMosaic={goToSlide}/>
-                : slides[currentSlide]
-            }
+            {mosaicView ? (
+                <MosaicView
+                slides={slides}
+                currentSlide={currentSlide}
+                goToSlideFromMosaic={goToSlide}
+                />
+            ) : (
+                slides[currentSlide]
+            )}
             <ToolBar
                 mosaicView={mosaicView}
                 onClickFirst={() => setCurrentSlide(0)}
@@ -76,12 +81,15 @@ function Deck({children}) {
                 currentSlide={currentSlide}
                 totalSlides={totalSlides}
             />
-            {!mosaicView ?
+            {!mosaicView ? (
                 <div
                     className="progress-bar fixed top-0 left-0 w-0 h-2 transition-all duration-500 ease-in-out
                 bg-primary dark:bg-primary"
-                    style={{width: `${progressWidth}%`}}/> : ""
-            }
+                    style={{ width: `${progressWidth}%` }}
+                />
+            ) : (
+                ""
+            )}
         </div>
     );
 }
@@ -91,11 +99,17 @@ function Deck({children}) {
 // Mosaic view
 function MosaicView(props) {
     return (
-        <div className={"mosaic-view grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8"}>
+        <div
+            className={
+                "mosaic-view grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8"
+            }
+        >
             {props.slides.map((slide, index) => (
-                <div key={index} className="mosaic-slide h-80 w-full rounded-lg flex flex-col
-                    justify-center bg-background dark:bg-stone-800 overflow-clip cursor-pointer shadow-2xl"
-                     onClick={() => props.goToSlideFromMosaic(index)}>
+                <div
+                    key={index}
+                    className={`${index==props.currentSlide?'active-slide':''} mosaic-slide h-80 w-full rounded-lg flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip cursor-pointer shadow-2xl`}
+                    onClick={() => props.goToSlideFromMosaic(index)}
+                >
                     <div className="mosaic-slide-content scale-[0.33] flex flex-col items-center text-center mx-0">
                         {slide}
                     </div>
@@ -108,39 +122,69 @@ function MosaicView(props) {
 function ToolBar(props) {
     const [numberVisible, setNumberVisible] = useState(true);
 
-    return <div className="toolbar fixed bottom-0 left-0 flex flex-row justify-between px-4 py-2 w-full text-accent
-    dark:text-primary bg-background dark:bg-stone-800 shadow-2xl">
-        <div className="left-section">
-            <button disabled={props.mosaicView} className="first disabled:text-gray-600 pr-1" onClick={props.onClickFirst}>
-                <span className="material-symbols-outlined">first_page</span>
-            </button>
-            <button disabled={props.mosaicView} className="prev disabled:text-gray-600" onClick={props.onClickPrev}>
-                <span className="material-symbols-outlined">arrow_back_ios</span>
-            </button>
-            <button disabled={props.mosaicView} className="next disabled:text-gray-600" onClick={props.onClickNext}>
-                <span className="material-symbols-outlined">arrow_forward_ios</span>
-            </button>
-            <button disabled={props.mosaicView} className="last disabled:text-gray-600" onClick={props.onClickLast}>
-                <span className="material-symbols-outlined">last_page</span>
-            </button>
-            <button className="mosaic-view" onClick={props.onClickMosaic}>
-                <span className="material-symbols-outlined">view_cozy</span>
-            </button>
+    return (
+        <div
+            className="toolbar fixed bottom-0 left-0 grid grid-cols-3 justify-between px-4 py-2 w-full text-accent
+    dark:text-primary bg-background dark:bg-stone-800 shadow-2xl"
+        >
+            <div className="left-section">
+                <button
+                    disabled={props.mosaicView}
+                    className="first disabled:text-gray-600 pr-1"
+                    onClick={props.onClickFirst}
+                >
+                    <span className="material-symbols-outlined">
+                        first_page
+                    </span>
+                </button>
+                <button
+                    disabled={props.mosaicView}
+                    className="prev disabled:text-gray-600"
+                    onClick={props.onClickPrev}
+                >
+                    <span className="material-symbols-outlined">
+                        arrow_back_ios
+                    </span>
+                </button>
+                <button
+                    disabled={props.mosaicView}
+                    className="next disabled:text-gray-600"
+                    onClick={props.onClickNext}
+                >
+                    <span className="material-symbols-outlined">
+                        arrow_forward_ios
+                    </span>
+                </button>
+                <button
+                    disabled={props.mosaicView}
+                    className="last disabled:text-gray-600"
+                    onClick={props.onClickLast}
+                >
+                    <span className="material-symbols-outlined">last_page</span>
+                </button>
+                <button className="mosaic-view" onClick={props.onClickMosaic}>
+                    <span className="material-symbols-outlined">view_cozy</span>
+                </button>
+            </div>
+            <div className="middle-section font-bold text-center">
+                {numberVisible
+                    ? props.currentSlide + 1 + "/" + props.totalSlides
+                    : ""}
+            </div>
+            <div className="right-section text-right">
+                <button
+                    className="settings relative"
+                    onClick={() => {
+                        setNumberVisible(!numberVisible);
+                    }}
+                >
+                    <span className="material-symbols-outlined">
+                        {numberVisible ? "visibility" : "visibility_off"}
+                    </span>
+                </button>
+            </div>
         </div>
-        <div className="middle-section font-bold">
-            {numberVisible ? ((props.currentSlide + 1) + "/" + props.totalSlides) : ""}
-        </div>
-        <div className="right-section">
-            <button className="settings relative" onClick={() => {
-                setNumberVisible(!numberVisible);
-            }}>
-
-                <span className="material-symbols-outlined">
-                    {numberVisible ? "visibility" : "visibility_off"}
-                </span>
-            </button>
-        </div>
-    </div>;
+    );
 }
 
 ToolBar.propTypes = {
@@ -149,17 +193,17 @@ ToolBar.propTypes = {
     onClickNext: PropTypes.func,
     onClickMosaic: PropTypes.func,
     currentSlide: PropTypes.number,
-    totalSlides: PropTypes.number
+    totalSlides: PropTypes.number,
 };
 
 // Prop types
 MosaicView.propTypes = {
     slides: PropTypes.arrayOf(PropTypes.node).isRequired,
-    goToSlideFromMosaic: PropTypes.func.isRequired
+    goToSlideFromMosaic: PropTypes.func.isRequired,
 };
 
 Deck.propTypes = {
     children: PropTypes.array.isRequired,
 };
 
-export {Deck};
+export { Deck };

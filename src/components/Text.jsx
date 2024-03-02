@@ -8,18 +8,18 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import PropTypes from "prop-types";
 
-function Paragraph({children: text}) {
+function Paragraph(props) {
     return (
         <p className="text text-text dark:text-primary text-3xl">
-            {text}
+            {props.children}
         </p>
     );
 }
 
-function Title({children: text}) {
+function Title(props) {
     return (
         <h1 className="title text-7xl font-bold p-8 text-accent dark:text-secondary">
-            {text}
+            {props.children}
         </h1>
     );
 }
@@ -39,16 +39,18 @@ function CodeBlock(props) {
 
 // Prop types
 Paragraph.propTypes = {
-    children: PropTypes.string.isRequired
+    text: PropTypes.string
 };
 
 Title.propTypes = {
-    children: PropTypes.string.isRequired
+    text: PropTypes.string
 };
 
 CodeBlock.propTypes = {
-    children: PropTypes.node.isRequired,
-    syntax: PropTypes.string
+    syntax: PropTypes.string,
+    code: PropTypes.string
 };
+
+
 
 export {Paragraph, Title, CodeBlock};
