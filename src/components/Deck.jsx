@@ -6,13 +6,26 @@ import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 function Deck({ children }) {
+
+    // Check valid children
+    if (!children) {
+        throw new Error("Deck component must have at least one child.");
+    }
+
     // Hooks
     const [currentSlide, setCurrentSlide] = useState(0);
     const [progressWidth, setProgressWidth] = useState(0);
     const [mosaicView, setMosaicView] = useState(false);
 
+    // Variables
+    let slides;
+
     // Index the slides
-    const slides = children;
+    if(children.length) {
+        slides = children;
+    } else {
+        slides = [children];
+    }
 
     // Constants
     const totalSlides = slides.length;
@@ -21,13 +34,18 @@ function Deck({ children }) {
     const nextSlide = useCallback(() => {
         if (currentSlide < totalSlides - 1) {
             setCurrentSlide(currentSlide + 1);
-            setProgressWidth(((currentSlide + 1) / (totalSlides - 1)) * 100);
+            if (totalSlides > 1) {
+                setProgressWidth(((currentSlide + 1) / (totalSlides - 1)) * 100);
+            }
         }
     }, [currentSlide, totalSlides]);
+
     const prevSlide = useCallback(() => {
         if (currentSlide > 0) {
             setCurrentSlide(currentSlide - 1);
-            setProgressWidth(((currentSlide - 1) / (totalSlides - 1)) * 100);
+            if (totalSlides > 1) {
+                setProgressWidth(((currentSlide - 1) / (totalSlides - 1)) * 100);
+            }
         }
     }, [currentSlide, totalSlides]);
 
@@ -57,7 +75,9 @@ function Deck({ children }) {
 
     // Set the progress bar width
     useEffect(() => {
-        setProgressWidth((currentSlide / (totalSlides - 1)) * 100);
+        if (totalSlides > 1) {
+            setProgressWidth((currentSlide / (totalSlides - 1)) * 100);
+        }   
     }, [currentSlide, totalSlides]);
 
     return (
@@ -203,7 +223,7 @@ MosaicView.propTypes = {
 };
 
 Deck.propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.any,
 };
 
 export { Deck };
