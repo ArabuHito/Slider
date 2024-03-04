@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 function Deck({ children }) {
-
     // Check valid children
     if (!children) {
         throw new Error("Deck component must have at least one child.");
@@ -21,7 +20,7 @@ function Deck({ children }) {
     let slides;
 
     // Index the slides
-    if(children.length) {
+    if (children.length) {
         slides = children;
     } else {
         slides = [children];
@@ -35,7 +34,9 @@ function Deck({ children }) {
         if (currentSlide < totalSlides - 1) {
             setCurrentSlide(currentSlide + 1);
             if (totalSlides > 1) {
-                setProgressWidth(((currentSlide + 1) / (totalSlides - 1)) * 100);
+                setProgressWidth(
+                    ((currentSlide + 1) / (totalSlides - 1)) * 100
+                );
             }
         }
     }, [currentSlide, totalSlides]);
@@ -44,7 +45,9 @@ function Deck({ children }) {
         if (currentSlide > 0) {
             setCurrentSlide(currentSlide - 1);
             if (totalSlides > 1) {
-                setProgressWidth(((currentSlide - 1) / (totalSlides - 1)) * 100);
+                setProgressWidth(
+                    ((currentSlide - 1) / (totalSlides - 1)) * 100
+                );
             }
         }
     }, [currentSlide, totalSlides]);
@@ -77,16 +80,16 @@ function Deck({ children }) {
     useEffect(() => {
         if (totalSlides > 1) {
             setProgressWidth((currentSlide / (totalSlides - 1)) * 100);
-        }   
+        }
     }, [currentSlide, totalSlides]);
 
     return (
         <div className={"deck"}>
             {mosaicView ? (
                 <MosaicView
-                slides={slides}
-                currentSlide={currentSlide}
-                goToSlideFromMosaic={goToSlide}
+                    slides={slides}
+                    currentSlide={currentSlide}
+                    goToSlideFromMosaic={goToSlide}
                 />
             ) : (
                 slides[currentSlide]
@@ -98,8 +101,9 @@ function Deck({ children }) {
                 onClickNext={nextSlide}
                 onClickLast={() => setCurrentSlide(totalSlides - 1)}
                 onClickMosaic={() => setMosaicView(!mosaicView)}
-                currentSlide={currentSlide}
                 totalSlides={totalSlides}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
             />
             {!mosaicView ? (
                 <div
@@ -127,7 +131,9 @@ function MosaicView(props) {
             {props.slides.map((slide, index) => (
                 <div
                     key={index}
-                    className={`${index==props.currentSlide?'active-slide':''} mosaic-slide h-80 w-full rounded-lg flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip cursor-pointer shadow-2xl`}
+                    className={`${
+                        index == props.currentSlide ? "active-slide" : ""
+                    } mosaic-slide h-80 w-full rounded-lg flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip cursor-pointer shadow-2xl`}
                     onClick={() => props.goToSlideFromMosaic(index)}
                 >
                     <div className="mosaic-slide-content scale-[0.33] flex flex-col items-center text-center mx-0">
@@ -141,6 +147,12 @@ function MosaicView(props) {
 
 function ToolBar(props) {
     const [numberVisible, setNumberVisible] = useState(true);
+
+    function setCurrentSlide(slide){
+        if(slide > 0 && slide <= props.totalSlides){
+            props.setCurrentSlide(slide - 1);
+        }
+    }
 
     return (
         <div
@@ -187,9 +199,18 @@ function ToolBar(props) {
                 </button>
             </div>
             <div className="middle-section font-bold text-center">
-                {numberVisible
-                    ? props.currentSlide + 1 + "/" + props.totalSlides
-                    : ""}
+                {numberVisible ? (
+                    <span>
+                        <input
+                        type="number"
+                        placeholder = {props.currentSlide}
+                        onChange={(event) => setCurrentSlide(Number(event.target.value))}
+                        />
+                        / {props.totalSlides}
+                    </span>
+                ) : (
+                    ""
+                )}
             </div>
             <div className="right-section text-right">
                 <button

@@ -10,6 +10,51 @@
     body {
         @apply bg-secondary dark:bg-stone-600;
     }
+
+    h2 {
+        @apply text-3xl font-bold text-primary dark:text-stone-100;
+    }
+
+    h3 {
+        @apply text-2xl font-bold text-primary dark:text-stone-100;
+    }
+
+    h4 {
+        @apply text-xl font-bold text-primary dark:text-stone-100;
+    }
+
+    h5 {
+        @apply text-lg font-bold text-primary dark:text-stone-100;
+    }
+
+    h6 {
+        @apply text-base font-bold text-primary dark:text-stone-100;
+    }
+
+    p {
+        @apply text-base text-primary dark:text-stone-100;
+    }
+
+    ul {
+        @apply list-disc list-inside;
+    }
+
+    code {
+        @apply text-code bg-stone-100 dark:bg-stone-800;
+    }
+
+    ol {
+        @apply list-decimal list-inside;
+    }
+
+    ol > ol, ul > ul {
+        @apply ml-2 mb-2 pl-6 border-l-2 border-primary dark:border-stone-100;
+    }
+
+    input[type="number"]{
+        -moz-appearance: textfield;
+        @apply w-3 text-center placeholder:text-text mr-1 bg-background dark:bg-stone-600;
+    }
 }
 
 @font-face {

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 function Paragraph(props) {
     return (
-        <p className="text text-text dark:text-primary text-3xl">
+        <p className="text py-8 text-text dark:text-primary text-3xl">
             {props.children}
         </p>
     );
@@ -26,14 +26,16 @@ function Title(props) {
 
 function CodeBlock(props) {
     return (
-        <div className="text-left border-black relative scale-[0.85]">
-            <SyntaxHighlighter language={props.syntax} style={dark}>
-                {props.code}
-            </SyntaxHighlighter>
-            <div className="absolute top-4 right-4 text-white">
-                {props.syntax}
-            </div>
+    <div className="text-left relative">
+        <SyntaxHighlighter language={props.syntax} style={dark} customStyle={{
+            maxHeight: "62vh",
+        }}>
+            {props.code}
+        </SyntaxHighlighter>
+        <div className="absolute top-4 right-4 text-white">
+            {props.syntax}
         </div>
+    </div>
     );
 }
 

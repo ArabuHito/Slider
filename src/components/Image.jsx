@@ -9,7 +9,7 @@ function Image ({ src, alt, caption }) {
     return (
         <div className="image-container">
             <img className="image mx-auto my-2 max-h-96 rounded-lg" src={src} alt={alt} />
-            {caption && <p className="image-caption text-text dark:text-primary text-2xl italic">{caption}</p>}
+            {caption && <p className="image-caption text-text dark:text-primary text-2xl italic pt-2">{caption}</p>}
         </div>
     )
 }
