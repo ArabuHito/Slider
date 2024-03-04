@@ -203,8 +203,10 @@ function ToolBar(props) {
                     <span>
                         <input
                         type="number"
-                        placeholder = {props.currentSlide}
-                        onChange={(event) => setCurrentSlide(Number(event.target.value))}
+                        placeholder = {props.currentSlide+1}
+                        onChange={(event) => {setCurrentSlide(Number(event.target.value))}}
+                        onSelect={(event) => {event.target.value = ""}}
+
                         />
                         / {props.totalSlides}
                     </span>
