@@ -136,7 +136,7 @@ function MosaicView(props) {
                     } mosaic-slide h-80 w-full rounded-lg flex flex-col justify-center bg-background dark:bg-stone-800 overflow-clip cursor-pointer shadow-2xl`}
                     onClick={() => props.goToSlideFromMosaic(index)}
                 >
-                    <div className="mosaic-slide-content scale-[0.33] flex flex-col items-center text-center mx-0">
+                    <div className="mosaic-slide-content scale-[0.33] flex flex-col items-center text-center mx-0 ">
                         {slide}
                     </div>
                 </div>

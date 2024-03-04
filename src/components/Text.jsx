@@ -29,6 +29,7 @@ function CodeBlock(props) {
     <div className="text-left relative">
         <SyntaxHighlighter language={props.syntax} style={dark} customStyle={{
             maxHeight: "62vh",
+            maxWidth: "40vw",
         }}>
             {props.code}
         </SyntaxHighlighter>
