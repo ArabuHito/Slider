@@ -40,12 +40,12 @@ function Slide(props) {
         };
 
         return (
-            <div className="slide h-screen w-screen text-center flex flex-col justify-center
-            bg-background dark:bg-stone-800 overflow-clip pt-20 px-20 pb-40">
+            <div className="slide h-screen w-screen text-left
+            bg-background dark:bg-stone-800 overflow-clip pt-20 pb-40">
                 <div className="title flex-2">
                     <Title>{props.title}</Title>
                 </div>
-                <div className="slide-content">
+                <div className="slide-content px-20">
                     <Markdown components={components}>
                         {props.markdown}
                     </Markdown>

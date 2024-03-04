@@ -39,6 +39,10 @@
         @apply list-disc list-inside;
     }
 
+    pre {
+        @apply w-fit;
+    }
+
     code {
         @apply text-code bg-stone-100 dark:bg-stone-800 dark:text-secondary;
     }

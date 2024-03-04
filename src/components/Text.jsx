@@ -2,8 +2,6 @@
  * BOUDOUAYA Ayoub, AMU 2024.
  */
 
-// TODO : Add Ordered and Unordered Lists
-
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import PropTypes from "prop-types";
@@ -26,10 +24,11 @@ function Title(props) {
 
 function CodeBlock(props) {
     return (
-    <div className="text-left relative">
+    <div className="relative max-h-[62vh] min-w-[20vw]">
         <SyntaxHighlighter language={props.syntax} style={dark} customStyle={{
-            maxHeight: "62vh",
+            maxHeight: "52vh",
             maxWidth: "40vw",
+            minWidth: "20vw",
         }}>
             {props.code}
         </SyntaxHighlighter>

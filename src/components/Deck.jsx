@@ -118,8 +118,6 @@ function Deck({ children }) {
     );
 }
 
-// TODO : Verify that a big image doesn't cause lag on mosaic view.
-
 // Mosaic view
 function MosaicView(props) {
     return (

@@ -7,6 +7,7 @@ import { Slide } from "./components/Slide.jsx";
 import { CodeBlock, Paragraph, Title } from "./components/Text.jsx";
 import { Deck } from "./components/Deck.jsx";
 import { Image } from "./components/Image.jsx";
+import Markdown from "react-markdown";
 
 // Markdown
 
@@ -15,8 +16,33 @@ const Slides = {
 # Slide en markdown !
 Cette slide a été généré entièrement en markdown !
 
-~~~bash
-echo C'est fou non ?
+~~~jsx
+const components = {
+    h1({node, children, ...props}) {
+        return (
+            <Title>
+                {children}
+            </Title>
+        );
+    },
+    code({node, inline, className, children, ...props}) {
+        const match = /language-(\w+)/.exec(className || '');
+        return !inline && match ? (
+            <CodeBlock syntax={match[1]} code={String(children).replace(/\n$/, '')} />
+        ) : (
+            <code className={className} {...props}>
+                {children}
+            </code>
+        );
+    },
+    p({node, children, ...props}) {
+        return (
+            <Paragraph>
+                {children}
+            </Paragraph>
+        );
+    }
+};
 ~~~
 
 Pour cela, je remplace les *composants* par défaut de markdown par mes propres composants !
@@ -35,20 +61,21 @@ function App() {
             {/*  Table of contents */}
             <Slide layout="full" title="Sommaire">
                 <Paragraph>
+                    <ol>
+                        <li>Hiérarchie composants</li>
+                        <li>Détail de chaque composant : </li>
                         <ol>
-                            <li>Hiérarchie composants</li>
-                            <li>Détail de chaque composant : </li>
-                            <ol>
-                                <li>Deck</li>
-                                <li>Slide</li>
-                                <li>Text</li>
-                                <li>Image</li>
-                            </ol>
-                            <li>Charte graphique</li>
-                            <li>Usage TailwindCSS</li>
-                            <li>Fonctionnel (Mosaique, Toolbar...)</li>
-                            <li>Liens utiles</li>
+                            <li>Deck</li>
+                            <li>Slide</li>
+                            <li>Text</li>
+                            <li>Image</li>
+                            <li>Markdown</li>
                         </ol>
+                        <li>Charte graphique</li>
+                        <li>Usage TailwindCSS</li>
+                        <li>Fonctionnel (Mosaique, Toolbar...)</li>
+                        <li>Liens utiles</li>
+                    </ol>
                 </Paragraph>
             </Slide>
 
@@ -187,9 +214,10 @@ function Deck({ children }) {
                 `}
                 />
                 <Paragraph>
-                    Le deck est le composant principal, il contient les slides, la toolbar et la mosaique.
-                    Il gère la navigation entre les slides, la barre de progression et le mode mosaique.
-                    C'est aussi le composant qui gère les évènements clavier.
+                    Le deck est le composant principal, il contient les slides,
+                    la toolbar et la mosaique. Il gère la navigation entre les
+                    slides, la barre de progression et le mode mosaique. C'est
+                    aussi le composant qui gère les évènements clavier.
                 </Paragraph>
             </Slide>
 
@@ -294,9 +322,10 @@ function Slide(props) {
                 `}
                 />
                 <Paragraph>
-                    Le composant slide est le composant qui affiche le contenu de la slide.
-                    Il peut afficher du markdown, des composants enfants ou un contenu simple.
-                    Il gère aussi les différentes mises en page.
+                    Le composant slide est le composant qui affiche le contenu
+                    de la slide. Il peut afficher du markdown, des composants
+                    enfants ou un contenu simple. Il gère aussi les différentes
+                    mises en page.
                 </Paragraph>
             </Slide>
 
@@ -338,8 +367,9 @@ function CodeBlock(props) {
                 `}
                 />
                 <Paragraph>
-                    Les composants textes sont des composants simples qui affichent du texte.
-                    Ils sont utilisés pour afficher les titres, les paragraphes et les blocs de code.
+                    Les composants textes sont des composants simples qui
+                    affichent du texte. Ils sont utilisés pour afficher les
+                    titres, les paragraphes et les blocs de code.
                 </Paragraph>
             </Slide>
 
@@ -359,17 +389,24 @@ function Image ({ src, alt, caption }) {
                 `}
                 />
                 <Paragraph>
-                    Le composant image est un composant simple qui affiche une image avec une légende.
+                    Le composant image est un composant simple qui affiche une
+                    image avec une légende.
                 </Paragraph>
             </Slide>
+
+            {/* Markdown */}
+            <Slide markdown={Slides.markdownDemo} />
 
             {/* Chart */}
             <Slide title="Charte graphique">
                 <Paragraph>
-                    L'aspect visuel de l'application est basé sur l'outil de présentation
-                    utilisé par M. Colombel. La barre d'outil y est constamment affichée sans
-                    que cela ne gêne la lecture. Les couleurs sont inspirés de ma palette personnelle
-                    que vous pouvez retrouver sur mon <a href="https://boudouaya.freeboxos.fr">site web</a> par exemple.
+                    L'aspect visuel de l'application est basé sur l'outil de
+                    présentation utilisé par M. Colombel. La barre d'outil y est
+                    constamment affichée sans que cela ne gêne la lecture. Les
+                    couleurs sont inspirés de ma palette personnelle que vous
+                    pouvez retrouver sur mon{" "}
+                    <a href="https://boudouaya.freeboxos.fr">site web</a> par
+                    exemple.
                 </Paragraph>
                 <Image
                     src="/Palette.png"
@@ -381,12 +418,15 @@ function Image ({ src, alt, caption }) {
             {/* TailwindCSS */}
             <Slide title="Ce fichu tailwind..." layout="column">
                 <Paragraph>
-                    Donc malgré tout ce que j'ai pu dire, vous m'avez forcé à utiliser TailwindCSS.
-                    Et bien je l'ai fait, mais je crois avoir péché par excès de zèle. J'ai utilisé
-                    des classes pour tout et n'importe quoi. J'ai même fait des composants pour les
-                    textes et les images. C'est dire.
+                    Donc malgré tout ce que j'ai pu dire, vous m'avez forcé à
+                    utiliser TailwindCSS. Et bien je l'ai fait, mais je crois
+                    avoir péché par excès de zèle. J'ai utilisé des classes pour
+                    tout et n'importe quoi. J'ai même fait des composants pour
+                    les textes et les images. C'est dire.
                 </Paragraph>
-                <CodeBlock syntax="css" code={`
+                <CodeBlock
+                    syntax="css"
+                    code={`
 /*
 * BOUDOUAYA Ayoub, AMU 2024.
 */
@@ -456,27 +496,27 @@ function Image ({ src, alt, caption }) {
    font-weight: 400;
    font-style: normal;
 }
-                `}/>
+                `}
+                />
             </Slide>
 
             {/* Functionnal */}
             <Slide title="Fonctionnel" layout="column">
                 <Paragraph>
-                    L'application est fonctionnelle. Elle permet de naviguer entre les slides,
-                    d'afficher les slides en mode mosaique, de naviguer avec le clavier et de
-                    naviguer avec la barre de progression.
+                    L'application est fonctionnelle. Elle permet de naviguer
+                    entre les slides, d'afficher les slides en mode mosaique, de
+                    naviguer avec le clavier et de naviguer avec la barre de
+                    progression.
                 </Paragraph>
-                <Image
-                    src="/Mosaic.png"
-                    alt="mosaic"
-                    caption="Mode mosaique"
-                />
+                <Image src="/Mosaic.png" alt="mosaic" caption="Mode mosaique" />
             </Slide>
 
             {/* Links */}
             <Slide>
                 <Title>
-                    Vous pouvez retrouver le code source de cette application sur mon <a href="https://github.com/ArabuHito/Slider">github</a>
+                    Vous pouvez retrouver le code source de cette application
+                    sur mon{" "}
+                    <a href="https://github.com/ArabuHito/Slider">github</a>
                 </Title>
             </Slide>
         </Deck>
