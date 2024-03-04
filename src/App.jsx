@@ -475,9 +475,9 @@ function Image ({ src, alt, caption }) {
 
             {/* Links */}
             <Slide>
-                <Titlez>
+                <Title>
                     Vous pouvez retrouver le code source de cette application sur mon <a href="https://github.com/ArabuHito/Slider">github</a>
-                </Titlez>
+                </Title>
             </Slide>
         </Deck>
     );
